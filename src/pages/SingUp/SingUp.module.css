@@ -1,0 +1,9 @@
+.successfully{
+    outline: 10px solid green;
+}
+.unsuccessfully{
+    outline: 10px solid red;
+}
+.none{
+    outline: none;
+}
