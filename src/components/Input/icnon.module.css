@@ -1,0 +1,16 @@
+
+.eye, .close, .accept, .eyeActive{
+    position: absolute;
+    cursor: pointer;
+    bottom: 42px;
+    right: 20px;
+}
+.eyeActive{
+    right: 50px;
+}
+.close *{
+    fill: #F46666;
+}
+.accept *{
+    fill:  #17BC77;
+}

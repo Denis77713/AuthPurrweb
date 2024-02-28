@@ -1,0 +1,54 @@
+@font-face {
+    font-family: 'fontello';
+    src: url('./font/fontello.eot');
+    src: url('./font/fontello.eot') format('embedded-opentype'),
+    url('./font/fontello.woff') format('woff'),
+    url('./font/fontello.ttf') format('truetype'),
+    url('./font/fontello.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*  */
+
+.none{
+    outline: none;
+}
+.inputSingUp{
+    height: 48px;
+    border-radius: 12px;
+    background: #F2F3F4;
+    border: none;
+    width: 240px;
+    margin-bottom: 28px;
+    padding: 0 20px;
+    color: #0B1332;
+    font-size: 14px;
+    line-height: 20px;
+  /* -webkit-text-security: none; */
+
+}
+input[type="password"] {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    letter-spacing: 4px;
+}
+#fontello{
+}
+input::placeholder{
+    letter-spacing: 0px;
+    font-size: 14px;
+}
+.wrapperSingUp{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: relative;
+}
+.successfully{
+    outline: 1px solid #17BC77
+}
+.unsuccessfully{
+    outline: 1px solid #F46666
+}

@@ -11,7 +11,13 @@ function SingIn() {
   const [email,setEmail] = useState("")
   const dispatch = useDispatch()
   // 
-  const arrState = [pass, repeatPass,email]
+  const arrState = [pass, repeatPass, email]
+  const Inputs = [
+    {id: 0, state: email, set: setEmail,name: "email", placeholder:"example@mail.ru", label: "Электронная почта", type: "email"},
+    {id: 1, state: pass, set: setPass, name: "password", placeholder: "Введите пароль", label: "Пароль", type: "password"},
+    {id: 2, state: repeatPass, set: setRepeatPass,name: "repeatPass", placeholder: "Повторите пароль", label: "Повтор пароля", type: "password"},
+  ]
+  
   // 
   // 
   // Хранит стили react-hook-form
@@ -30,34 +36,24 @@ function SingIn() {
       }
   //    
       return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className='form' onSubmit={handleSubmit(onSubmit)}>
           {/* Майл */}
-          <Input 
-            state={email} 
-            setState={setEmail} 
-            register={register} 
-            name={"email"}
-            num = {0}
-          />
-          <Input 
-            state={pass} 
-            setState={setPass} 
-            register={register} 
-            name={"password"}
-            num = {1}
-          />
-          <Input 
-            state={repeatPass} 
-            setState={setRepeatPass} 
-            register={register} 
-            name={"repeatPassword"}
-            num = {2}
-            // Для сравнения с полем пароля
-            repeatPassValidate = {pass}
-          />
+          {Inputs.map(item=> 
+          <Input
+            key={item.id}
+            state={item.state}
+            setState={item.set}
+            register={register}
+            name={item.name}
+            num={item.id}
+            repeatPassValidate = {item.name === "repeatPass"? pass: ""}
+            placeholder = {item.placeholder}
+            label = {item.label}
+            type = {item.type}
+          />)}
           {/* Всплывающая ошибка валидации */}
           {(errors.password && <span>{errors?.password?.message || 'Пароль обязателен'}</span>)}
-          {(errors.repeatPassword && !errors.password && <span>{errors?.repeatPassword?.message || "Заполните поле"}</span>)}
+          {(errors.repeatPass && !errors.password && <span>{errors?.repeatPass?.message || "Заполните поле"}</span>)}
           <SubmitButton handleClickValidation={()=>dispatch(handleClickValidation(arrState))} arrState = {arrState}/>
         </form>
       )

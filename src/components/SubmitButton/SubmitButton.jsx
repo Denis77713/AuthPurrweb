@@ -1,7 +1,7 @@
 import React from 'react'
-
+import style from "./SubmitButton.module.css"
 function SubmitButton({arrState,handleClickValidation}) {
-  // Используется для проверки кнопки SubmitButton на disabled
+  // Используется для проверки кнопки submitButtonSingUP на disabled
   function checkDisabledSubmit(arr) {
     const result = []
     let res
@@ -20,9 +20,16 @@ function SubmitButton({arrState,handleClickValidation}) {
     res === undefined?res = true:res = false
     return res          
   }
+
    const disabletValue = checkDisabledSubmit(arrState) 
-   
-  return <input onClick={handleClickValidation} type="submit" disabled = {disabletValue}  />
+   const active = style.submitButtonSingUP + " " + style.active
+   const disabled = style.submitButtonSingUP + " " + style.disabled
+
+  return <input 
+  className = {disabletValue ? disabled : active}
+  onClick={handleClickValidation} 
+  type="submit" 
+  disabled = {disabletValue}  />
 }
 
 export default SubmitButton
