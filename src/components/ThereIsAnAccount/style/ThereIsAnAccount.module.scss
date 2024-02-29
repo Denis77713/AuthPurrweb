@@ -1,0 +1,17 @@
+@use "../../../style/mixins" as mixin;
+@import url("../../../style/_font.scss");
+
+.singText{
+    @include mixin.RegularG14();
+    color: #0B1332;
+    margin-right: 8px;
+}
+.singHref{
+    @include mixin.MediumG14();
+    color: #466EFA;
+    margin-right: 10px;
+}
+.wrapperSing{
+    margin-top: 35px;
+    margin-bottom: 10px;
+}

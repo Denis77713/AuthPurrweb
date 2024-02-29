@@ -1,4 +1,4 @@
-import './App.css';
+import './style/App.css';
 import SingIn from './pages/SingUp/SingUp';
 
 function App() {

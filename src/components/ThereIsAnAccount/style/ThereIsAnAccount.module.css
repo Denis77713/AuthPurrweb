@@ -1,0 +1,19 @@
+@import url("../../../style/_font.scss");
+.singText {
+  font-size: 14px;
+  font-family: "RegularG";
+  color: #0B1332;
+  margin-right: 8px;
+}
+
+.singHref {
+  font-size: 14px;
+  font-family: "MediumG";
+  color: #466EFA;
+  margin-right: 10px;
+}
+
+.wrapperSing {
+  margin-top: 35px;
+  margin-bottom: 10px;
+}/*# sourceMappingURL=ThereIsAnAccount.module.css.map */

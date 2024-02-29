@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import styles from "../../components/Input/input.module.css"
+import styles from "../../components/Input/InputStyle/input.module.css"
 
 const SingUpSlice = createSlice({
     name:"SingUp",

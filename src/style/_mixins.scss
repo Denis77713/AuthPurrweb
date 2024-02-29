@@ -1,0 +1,43 @@
+// @import url("./_font.scss");
+
+
+@mixin SemiboldG36{
+    font-size: 36px;
+    font-family: "SemiboldG";
+}
+@mixin SemiboldG24{
+    font-size: 24px;
+    font-family: "SemiboldG";
+}
+@mixin MediumG22{
+    font-size: 22px;
+    font-family: "MediumG";
+}
+@mixin MediumG20{
+    font-size: 20px;
+    font-family: "MediumG";
+}
+@mixin MediumG18{
+    font-size: 18px;
+    font-family: "MediumG";
+}
+@mixin RegularG14{
+  font-size: 14px;
+  font-family: "RegularG";
+}
+@mixin MediumG14{
+  font-size: 14px;
+  font-family: "MediumG";
+}
+@mixin SemiboldG14{
+  font-size: 14px;
+  font-family: "SemiboldG";
+}
+@mixin RegularG16{
+  font-size: 16px;
+  font-family: "RegularG";
+}
+@mixin RegularG12{
+  font-size: 12px;
+  font-family: "RegularG";
+}

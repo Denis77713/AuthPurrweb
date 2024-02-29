@@ -1,0 +1,9 @@
+@import url("../../../style/_font.scss");
+.labelSingUp {
+  margin-bottom: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #0B1332;
+  font-size: 12px;
+  font-family: "RegularG";
+}/*# sourceMappingURL=label.module.css.map */

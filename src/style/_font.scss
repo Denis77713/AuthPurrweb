@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'MediumG';
+    src: local('../font/Medium/Gilroy Medium'), local('Gilroy-Medium'),
+        url('../font/Medium/Gilroy-Medium.woff2') format('woff2'),
+        url('../font/Medium/Gilroy-Medium.woff') format('woff'),
+        url('../font/Medium/Gilroy-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SemiboldG';
+    src: local('../font/Semibold/Gilroy Semibold'), local('Gilroy-Semibold'),
+        url('../font/Semibold/Gilroy-Semibold.woff2') format('woff2'),
+        url('../font/Semibold/Gilroy-Semibold.woff') format('woff'),
+        url('../font/Semibold/Gilroy-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'RegularG';
+    src: local('../font/Regular/Gilroy Regular'), local('Gilroy-Regular'),
+        url('../font/Regular/Gilroy-Regular.woff2') format('woff2'),
+        url('../font/Regular/Gilroy-Regular.woff') format('woff'),
+        url('../font/Regular/Gilroy-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }

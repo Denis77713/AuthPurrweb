@@ -1,0 +1,9 @@
+@use "../../../style/mixins" as mixin;
+@import url("../../../style/_font.scss");
+
+.title{
+    color: #0B1332;
+    @include mixin.MediumG20();
+    line-height: 28px;
+    margin-bottom: 48px;
+}

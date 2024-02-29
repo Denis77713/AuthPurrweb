@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import style from "./input.module.css"
-import labelStyle from "./label.module.css"
-import icnon from "./icnon.module.css"
+import style from "./InputStyle/input.module.css"
+import labelStyle from "./LabelStyle/label.module.css"
+import icnon from "./IconStyle/icnon.module.css"
 import {ReactComponent as AcceptImg}  from './images/accept.svg'
 import {ReactComponent as CloseImg}  from './images/close.svg'
 
