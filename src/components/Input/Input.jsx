@@ -16,7 +16,7 @@ function Input({state, setState,register, name, num, repeatPassValidate, placeho
   //  successfully/unsuccessfully
   const validateStyle = classes[num].replaceAll("_"," ").split(" ")[1]
   // 
-   
+  // name === "repeatPass"? pass: ""
   return (
   <div className={style.wrapperSingUp}>
     <label className={labelStyle.labelSingUp}>{label}</label>
