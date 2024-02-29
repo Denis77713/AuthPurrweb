@@ -37,7 +37,6 @@ const {
       register={register}
       name={item.name}
       num={item.id}
-      repeatPassValidate = {item.name === "repeatPass"? pass: ""}
       placeholder = {item.placeholder}
       label = {item.label}
       type = {item.type}

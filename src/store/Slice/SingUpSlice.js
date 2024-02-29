@@ -4,7 +4,8 @@ import styles from "../../components/Input/InputStyle/input.module.css"
 const SingUpSlice = createSlice({
     name:"SingUp",
     initialState:{
-         classes: [styles.none,styles.none,styles.none]
+         classes: [styles.none,styles.none,styles.none],
+         passState:""
     },
     reducers:{
         // Меняем границы по клику фокуса
@@ -21,7 +22,7 @@ const SingUpSlice = createSlice({
         if(email.length >= 8) newArr[0] = styles.successfully    
         
         state.classes = [...newArr]
-        
+        state.passState = pass
         }  
     }
 })

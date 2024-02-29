@@ -6,7 +6,7 @@ import icnon from "./IconStyle/icnon.module.css"
 import {ReactComponent as AcceptImg}  from './images/accept.svg'
 import {ReactComponent as CloseImg}  from './images/close.svg'
 
-function Input({state, setState,register, name, num, repeatPassValidate, placeholder, label, type}) {
+function Input({state, setState,register, name, num, placeholder, label, type}) {
   // Редюсер
   const classes = useSelector(store=>store.SingUpSlice.classes)
   //  Скрытие/отображение пароля
@@ -16,7 +16,7 @@ function Input({state, setState,register, name, num, repeatPassValidate, placeho
   //  successfully/unsuccessfully
   const validateStyle = classes[num].replaceAll("_"," ").split(" ")[1]
   // 
-  // name === "repeatPass"? pass: ""
+   const repeatPassValidate = useSelector(store => store.SingUpSlice.passState)
   return (
   <div className={style.wrapperSingUp}>
     <label className={labelStyle.labelSingUp}>{label}</label>
@@ -30,7 +30,11 @@ function Input({state, setState,register, name, num, repeatPassValidate, placeho
         message:"Минимум 8 символов"
       }, 
       required: true,
-      validate: value => name === "repeatPass"? value === repeatPassValidate: true || 'Пароли не воспадают',
+      validate: value => {
+        if(name === "repeatPass"){
+          return value === repeatPassValidate|| 'Пароли не воспадают'
+        }
+      }
     })} 
     value={state}
     onChange = {(e)=> {setState(e.target.value)}}/>
