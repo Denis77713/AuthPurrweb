@@ -58,7 +58,7 @@ input::placeholder {
 .wrapperSingUp {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: start;
   position: relative;
 }
 

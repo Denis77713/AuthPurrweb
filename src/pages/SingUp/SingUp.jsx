@@ -36,7 +36,12 @@ function SingIn() {
       type: "password"
     },
   ]
-  // 
+  const bottomText = {
+    bool: true,
+    text: "Уже есть аккаунт?",
+    href: "Войти",
+    url:"/singin"
+  }  
   // 
   
   //    
@@ -45,8 +50,7 @@ function SingIn() {
           Inputs = {Inputs}
           arrState = {arrState}
           title={"Регистрация"}
-          bottomText = {true}
-          pass={pass}
+          bottomText = {bottomText}
         />
       )
       

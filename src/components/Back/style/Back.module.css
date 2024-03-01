@@ -1,0 +1,13 @@
+@import url("../../../style/_font.scss");
+.back {
+  color: #6F7488;
+  font-size: 14px;
+  font-family: "MediumG";
+  cursor: pointer;
+  position: absolute;
+  top: 80px;
+  left: 120px;
+}
+.back__img {
+  margin-right: 8px;
+}/*# sourceMappingURL=Back.module.css.map */

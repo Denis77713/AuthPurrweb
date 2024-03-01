@@ -1,0 +1,14 @@
+@use "../../../style/mixins" as mixin;
+@import url("../../../style/_font.scss");
+
+.back{
+    color: #6F7488;
+    @include mixin.MediumG14();
+    cursor: pointer;
+    position: absolute;
+    top: 80px;
+    left: 120px;
+    &__img{
+        margin-right: 8px;
+    }
+}

@@ -6,10 +6,12 @@ import SubmitButton from '../SubmitButton/SubmitButton'
 import ThereIsAnAccount from '../ThereIsAnAccount/ThereIsAnAccount'
 import { useDispatch } from 'react-redux'
 import {handleClickValidation} from "../../store/Slice/SingUpSlice"
+import {useNavigate } from 'react-router-dom'
 
 
 
-function Form({Inputs,arrState,title,bottomText, pass}) {
+function Form({Inputs,arrState,title,bottomText}) {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
     // Хранит стили react-hook-form
 const {
@@ -23,7 +25,7 @@ const {
   // 
   // Проверка перед отправкой данных
       const onSubmit = () => {
-          console.log(123)
+          navigate("/aboutme")
       }
   return (
     <form className='form' onSubmit={handleSubmit(onSubmit)}>
@@ -48,10 +50,11 @@ const {
     <SubmitButton handleClickValidation={()=>dispatch(handleClickValidation(arrState))}
      arrState = {arrState}/>
     {/* ThereIsAnAccount */}
-    {bottomText?
+    {bottomText.bool?
         <ThereIsAnAccount
-        text={"Уже есть аккаунт?"}
-        href={"Войти"}
+        text={bottomText.text}
+        href={bottomText.href}
+        url={bottomText.url}
         />
         :""
     }

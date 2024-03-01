@@ -26,6 +26,7 @@ function SubmitButton({arrState,handleClickValidation}) {
    const disabled = style.submitButtonSingUP + " " + style.disabled
 
   return <input 
+  value={"Продолжить"}
   className = {disabletValue ? disabled : active}
   onClick={handleClickValidation} 
   type="submit" 

@@ -7,11 +7,13 @@ function Navigation() {
         {/* Контент */}
           <Outlet/>
           <div>
-            {/* native */}
             <NavLink to="/" >Menu</NavLink>
             <br />
-            {/* styled component */}
-            <NavLink to="/singin" >Cart</NavLink>
+            <NavLink to="/singin" >singin</NavLink>
+            <br />
+            <NavLink to="/aboutme" >AboutMe</NavLink>
+            <br />
+            <NavLink to="/singup" >singup</NavLink>
           </div>
         </>
     )
