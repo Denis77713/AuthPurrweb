@@ -10,7 +10,7 @@ export const fetchSingUp = createAsyncThunk(
     .then((response) => response.json())
     .then(data =>
     data.forEach(item => {
-      if(item.email === dataFrom.email ||item.email === dataFrom) mail = true
+      if(item.email === dataFrom.email || item.email === dataFrom) mail = true
       console.log(mail)
     }))
     return mail
@@ -22,7 +22,7 @@ const SingUpSlice = createSlice({
     initialState:{
          classes: [styles.none,styles.none,styles.none],
          passState:"",
-         error: false
+         error: true,
     },
     reducers:{
         // Меняем границы по клику фокуса
@@ -30,13 +30,11 @@ const SingUpSlice = createSlice({
         handleClickValidation(state, action) {
         const [pass,repeatPass,email] = action.payload
         // Валидация повтора пароля
-        const newArr = []
-        for(let i = 0; i <= action.payload.length; i++) {
-        newArr.push(styles.unsuccessfully)
-        }
+        const newArr = [styles.none,styles.unsuccessfully,styles.unsuccessfully]
         if(pass === repeatPass && pass.length >= 8) newArr[2] = styles.successfully
         if(pass.length >= 8) newArr[1] = styles.successfully
-        if(email.length >= 8 && state.error === true) newArr[0] = styles.successfully    
+        // if(email.length >= 8 && state.error === false) newArr[0] = styles.successfully    
+        console.log(state.error)
         
         state.classes = [...newArr]
         state.passState = pass
@@ -51,10 +49,18 @@ const SingUpSlice = createSlice({
         },
         emailError(state,action){
           state.error = action.payload
-          console.log(state.error)
-          
+          if(state.error ===true){
+            console.log(state.error)
+            state.classes[0] = styles.unsuccessfully
+          }else{
+            state.classes[0] = styles.successfully
+          } 
+        },
+        defaultStyle(state,action){
+          const arr = [styles.none,styles.none,styles.none]
+          state.classes = [...arr]
         }
     }
 })
-export const {handleClickValidation,error,errorStyle,emailError} = SingUpSlice.actions
+export const {handleClickValidation,error,errorStyle,emailError,defaultStyle} = SingUpSlice.actions
 export default SingUpSlice.reducer

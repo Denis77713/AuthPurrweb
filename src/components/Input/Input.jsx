@@ -19,13 +19,6 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
   // 
   const dispatch = useDispatch()
    const repeatPassValidate = useSelector(store => store.SingUpSlice.passState)
-   const singUpError = useSelector(store=> store.SingUpSlice.error)
-   
-  //  console.log(singUpError)
-  //  useEffect(()=>{
-  //    console.log(singUpError)
-
-  //  },[singUpError])
    
   return (
   <div className={style.wrapperSingUp}>
@@ -54,19 +47,15 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
             })
           })
           if(name === "email"){
-            dispatch(emailError(err))
+           await dispatch(emailError(err))
             return value !== result || "пользователь с таким email уже существует..."
           }
-
+        },
+        passAndRepeatPass:(value)=>{
+          if(name === "repeatPass"){
+            return value === repeatPassValidate || 'Пароли не воспадают'
+          }
         }
-        // if(name === "repeatPass"){
-        //   return value === repeatPassValidate || 'Пароли не воспадают'
-        // }
-       
-          // if(singUpError===true){
-          //   console.log(123)
-          //   }
-            // return  singUpError === true || "такая почта есть"  
       }
     })} 
     value={state}
@@ -85,10 +74,8 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
       {
         validateStyle === "successfully"
         ? 
-        // <img className = {icnon.accept} src={} alt="accept" />
         <AcceptImg className = {icnon.accept} alt="accept"/>
         :validateStyle === "unsuccessfully"?
-        // <img className = {icnon.close} src="./images/close.svg" alt="close" />
         <CloseImg className = {icnon.close}  alt="close"/>
         :""
       }

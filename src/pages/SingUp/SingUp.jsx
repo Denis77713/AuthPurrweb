@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Form from '../../components/Form/Form'
-import {handleClickValidation,fetchSingUp} from "../../store/Slice/SingUpSlice"
+import {handleClickValidation,defaultStyle} from "../../store/Slice/SingUpSlice"
 import { useNavigate } from 'react-router-dom'
 import { error } from '../../store/Slice/SingUpSlice'
 import { useDispatch } from 'react-redux'
@@ -68,17 +68,21 @@ function SingIn() {
     url:"/singin"
   }  
   // 
-  function onSubmit(data){
-    const response = dispatch(fetchSingUp(data))
-    response.then(request=>request).then(data=>{ 
-      console.log(data)
-      dispatch(error(data))
-    })
-  }
-  function onError(data){
-    console.log(data.email.ref.value)
-  }
+  // function onSubmit(data){
+  //   const response = dispatch(fetchSingUp(data))
+  //   response.then(request=>request).then(data=>{ 
+  //     console.log(data)
+  //     dispatch(error(data))
+  //   })
+  // }
+  // function onError(data){
+  //   console.log(data.email.ref.value)
+  // }
   //    
+  function onSubmit(){
+    navigate("/aboutme")
+    dispatch(defaultStyle())
+  }
       return (
         <Form 
           Inputs = {Inputs}
@@ -87,7 +91,7 @@ function SingIn() {
           bottomText = {bottomText}
           handleClickValidation={handleClickValidation}
           onSubmit={onSubmit}
-          onError={onError}
+          // onError={onError}
         />
       )
       

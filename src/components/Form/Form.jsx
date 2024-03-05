@@ -21,12 +21,8 @@ const {
     },
   } = useForm({mode:"onSubmit"})           
   // 
- function Submit(data){
-  console.log(data)
-  
- }
   return (
-    <form className='form' onSubmit={handleSubmit(Submit)}>
+    <form className='form' onSubmit={handleSubmit(onSubmit,onError)}>
     <TitleForm>{title}</TitleForm>
     {/* Майл */}
     {Inputs.map(item=> 
@@ -43,8 +39,8 @@ const {
     />)}
     {/* Всплывающая ошибка валидации */}
 
-    {(errors.email && <span>{errors?.email?.message || 'Почта обязателен'}</span>)}
-    {(errors.password && <span>{errors?.password?.message || 'Пароль обязателен'}</span>)}
+    {(errors.email && <span>{errors?.email?.message || 'Почта обязательна'}</span>)}
+    {(errors.password &&!errors.email&& <span>{errors?.password?.message || 'Пароль обязателен'}</span>)}
     {(errors.repeatPass && !errors.password && <span>{errors?.repeatPass?.message || "Заполните поле"}</span>)}
     
     <SubmitButton handleClickValidation={()=>dispatch(handleClickValidation(arrState))}
