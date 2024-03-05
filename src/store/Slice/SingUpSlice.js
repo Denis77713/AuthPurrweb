@@ -10,7 +10,7 @@ export const fetchSingUp = createAsyncThunk(
     .then((response) => response.json())
     .then(data =>
     data.forEach(item => {
-      if(item.email === dataFrom.email) mail = true
+      if(item.email === dataFrom.email ||item.email === dataFrom) mail = true
       console.log(mail)
     }))
     return mail
@@ -36,18 +36,25 @@ const SingUpSlice = createSlice({
         }
         if(pass === repeatPass && pass.length >= 8) newArr[2] = styles.successfully
         if(pass.length >= 8) newArr[1] = styles.successfully
-        if(email.length >= 8 ) newArr[0] = styles.successfully    
+        if(email.length >= 8 && state.error === true) newArr[0] = styles.successfully    
         
         state.classes = [...newArr]
         state.passState = pass
+        console.log(123)
+        
         },
         error(state,action){
          state.error = action.payload.payload
         },
         errorStyle(state,action){
           state.classes = [styles.unsuccessfully,styles.successfully,styles.successfully]
+        },
+        emailError(state,action){
+          state.error = action.payload
+          console.log(state.error)
+          
         }
     }
 })
-export const {handleClickValidation,error,errorStyle} = SingUpSlice.actions
+export const {handleClickValidation,error,errorStyle,emailError} = SingUpSlice.actions
 export default SingUpSlice.reducer

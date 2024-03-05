@@ -21,9 +21,12 @@ const {
     },
   } = useForm({mode:"onSubmit"})           
   // 
- 
+ function Submit(data){
+  console.log(data)
+  
+ }
   return (
-    <form className='form' onSubmit={handleSubmit(onSubmit,onError)}>
+    <form className='form' onSubmit={handleSubmit(Submit)}>
     <TitleForm>{title}</TitleForm>
     {/* Майл */}
     {Inputs.map(item=> 
@@ -39,6 +42,8 @@ const {
       type = {item.type}
     />)}
     {/* Всплывающая ошибка валидации */}
+
+    {(errors.email && <span>{errors?.email?.message || 'Почта обязателен'}</span>)}
     {(errors.password && <span>{errors?.password?.message || 'Пароль обязателен'}</span>)}
     {(errors.repeatPass && !errors.password && <span>{errors?.repeatPass?.message || "Заполните поле"}</span>)}
     

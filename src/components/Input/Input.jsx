@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import style from "./InputStyle/input.module.css"
 import labelStyle from "./LabelStyle/label.module.css"
 import icnon from "./IconStyle/icnon.module.css"
 import {ReactComponent as AcceptImg}  from './images/accept.svg'
 import {ReactComponent as CloseImg}  from './images/close.svg'
+import {emailError} from "../../store/Slice/SingUpSlice"
 
 function Input({state, setState,register, name, num, placeholder, label, type}) {
   // Редюсер
@@ -16,9 +17,9 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
   //  successfully/unsuccessfully
   const validateStyle = classes[num].replaceAll("_"," ").split(" ")[1]
   // 
+  const dispatch = useDispatch()
    const repeatPassValidate = useSelector(store => store.SingUpSlice.passState)
    const singUpError = useSelector(store=> store.SingUpSlice.error)
-   console.log(singUpError)
    
   //  console.log(singUpError)
   //  useEffect(()=>{
@@ -39,7 +40,25 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
         message:"Минимум 8 символов"
       }, 
       required: true,
-      validate: value => {
+      validate: {
+        checkUrl: async (value) => {
+          let result
+          let err = false
+          await fetch("http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users")
+          .then(response=>response.json()).then(data=>{
+            data.forEach(item=> {
+              if(item.email === value){
+                result = item.email
+                err = true 
+              }
+            })
+          })
+          if(name === "email"){
+            dispatch(emailError(err))
+            return value !== result || "пользователь с таким email уже существует..."
+          }
+
+        }
         // if(name === "repeatPass"){
         //   return value === repeatPassValidate || 'Пароли не воспадают'
         // }

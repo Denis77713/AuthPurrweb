@@ -76,7 +76,7 @@ function SingIn() {
     })
   }
   function onError(data){
-    console.log(data)
+    console.log(data.email.ref.value)
   }
   //    
       return (
