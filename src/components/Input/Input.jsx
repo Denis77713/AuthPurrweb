@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import style from "./InputStyle/input.module.css"
 import labelStyle from "./LabelStyle/label.module.css"
@@ -17,6 +17,15 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
   const validateStyle = classes[num].replaceAll("_"," ").split(" ")[1]
   // 
    const repeatPassValidate = useSelector(store => store.SingUpSlice.passState)
+   const singUpError = useSelector(store=> store.SingUpSlice.error)
+   console.log(singUpError)
+   
+  //  console.log(singUpError)
+  //  useEffect(()=>{
+  //    console.log(singUpError)
+
+  //  },[singUpError])
+   
   return (
   <div className={style.wrapperSingUp}>
     <label className={labelStyle.labelSingUp}>{label}</label>
@@ -31,9 +40,14 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
       }, 
       required: true,
       validate: value => {
-        if(name === "repeatPass"){
-          return value === repeatPassValidate|| 'Пароли не воспадают'
-        }
+        // if(name === "repeatPass"){
+        //   return value === repeatPassValidate || 'Пароли не воспадают'
+        // }
+       
+          // if(singUpError===true){
+          //   console.log(123)
+          //   }
+            // return  singUpError === true || "такая почта есть"  
       }
     })} 
     value={state}

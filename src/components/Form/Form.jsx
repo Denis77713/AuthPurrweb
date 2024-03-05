@@ -4,13 +4,12 @@ import { useForm } from 'react-hook-form'
 import Input from '../Input/Input'
 import SubmitButton from '../SubmitButton/SubmitButton'
 import ThereIsAnAccount from '../ThereIsAnAccount/ThereIsAnAccount'
-import { useDispatch } from 'react-redux'
-import {handleClickValidation} from "../../store/Slice/SingUpSlice"
+import { useDispatch, useSelector } from 'react-redux'
 import {useNavigate } from 'react-router-dom'
 
 
 
-function Form({Inputs,arrState,title,bottomText}) {
+function Form({Inputs,arrState,title,bottomText,handleClickValidation,onSubmit,onError}) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
     // Хранит стили react-hook-form
@@ -22,13 +21,9 @@ const {
     },
   } = useForm({mode:"onSubmit"})           
   // 
-  // 
-  // Проверка перед отправкой данных
-      const onSubmit = () => {
-          navigate("/aboutme")
-      }
+ 
   return (
-    <form className='form' onSubmit={handleSubmit(onSubmit)}>
+    <form className='form' onSubmit={handleSubmit(onSubmit,onError)}>
     <TitleForm>{title}</TitleForm>
     {/* Майл */}
     {Inputs.map(item=> 

@@ -11,7 +11,7 @@ const router = createBrowserRouter(
       <Route path='/' element = {<Main/>}/>
       <Route path='/singup'  element = {<SingUp/>}/>
       <Route path='/singin'  element = {<SingIn/>}/>
-      <Route index path='/aboutme'  element = {<AboutMe/>}/>
+      <Route path='/aboutme'  element = {<AboutMe/>}/>
       
       {/* <Route path='*'  element = {<Error/>}/> */}
     </Route>

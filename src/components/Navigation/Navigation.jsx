@@ -7,13 +7,13 @@ function Navigation() {
         {/* Контент */}
           <Outlet/>
           <div>
-            <NavLink to="/" >Menu</NavLink>
+            <NavLink to="/" >Main</NavLink>
             <br />
-            <NavLink to="/singin" >singin</NavLink>
+            <NavLink to="/singin" >SingIn</NavLink>
             <br />
             <NavLink to="/aboutme" >AboutMe</NavLink>
             <br />
-            <NavLink to="/singup" >singup</NavLink>
+            <NavLink to="/singup" >SingUp</NavLink>
           </div>
         </>
     )

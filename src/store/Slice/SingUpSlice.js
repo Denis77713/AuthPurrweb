@@ -1,11 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import styles from "../../components/Input/InputStyle/input.module.css"
+
+export const fetchSingUp = createAsyncThunk(
+  'SingUp/fetchSingUp',
+  async function(dataFrom){
+    let mail
+    const URL = "http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users";
+    await  fetch(URL)
+    .then((response) => response.json())
+    .then(data =>
+    data.forEach(item => {
+      if(item.email === dataFrom.email) mail = true
+
+      console.log(mail)
+    }))
+    return mail
+  }
+)
 
 const SingUpSlice = createSlice({
     name:"SingUp",
     initialState:{
          classes: [styles.none,styles.none,styles.none],
-         passState:""
+         passState:"",
+         error: false
     },
     reducers:{
         // Меняем границы по клику фокуса
@@ -19,12 +37,18 @@ const SingUpSlice = createSlice({
         }
         if(pass === repeatPass && pass.length >= 8) newArr[2] = styles.successfully
         if(pass.length >= 8) newArr[1] = styles.successfully
-        if(email.length >= 8) newArr[0] = styles.successfully    
+        if(email.length >= 8 ) newArr[0] = styles.successfully    
         
         state.classes = [...newArr]
         state.passState = pass
-        }  
+        },
+        error(state,action){
+         state.error = action.payload.payload
+        },
+        errorStyle(state,action){
+          state.classes = [styles.unsuccessfully,styles.successfully,styles.successfully]
+        }
     }
 })
-export const {handleClickValidation} = SingUpSlice.actions
+export const {handleClickValidation,error,errorStyle} = SingUpSlice.actions
 export default SingUpSlice.reducer
