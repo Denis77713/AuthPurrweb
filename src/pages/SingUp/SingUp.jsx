@@ -69,8 +69,11 @@ function SingIn() {
   }  
   // 
   function onSubmit(data){
-    const qwe = dispatch(fetchSingUp(data))
-    qwe.then(request=>request).then(data=>console.log(data))
+    const response = dispatch(fetchSingUp(data))
+    response.then(request=>request).then(data=>{ 
+      console.log(data)
+      dispatch(error(data))
+    })
   }
   function onError(data){
     console.log(data)

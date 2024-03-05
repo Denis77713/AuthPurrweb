@@ -11,7 +11,6 @@ export const fetchSingUp = createAsyncThunk(
     .then(data =>
     data.forEach(item => {
       if(item.email === dataFrom.email) mail = true
-
       console.log(mail)
     }))
     return mail
