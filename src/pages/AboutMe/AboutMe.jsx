@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Form from '../../components/Form/Form'
 import Back from '../../components/Back/Back'
+import {handleClickValidation} from "../../store/Slice/AboutMeSlice"
 
 function AboutMe() {
     const [name,setName] = useState("")
@@ -22,7 +23,7 @@ function AboutMe() {
         id: 1, 
         state: surname, 
         set: setSurname, 
-        name: "password", 
+        name: "surname", 
         placeholder: "Введите фамилию", 
         label: "Фамилия", 
         type: "text"
@@ -31,10 +32,10 @@ function AboutMe() {
         id: 2, 
         state: phone, 
         set: setPhone,
-        name: "repeatPass", 
+        name: "phone", 
         placeholder: "+7 (333)-333-33-33", 
         label: "Телефон", 
-        type: "phone"
+        type: "tel"
       },
     ]
     //
@@ -42,7 +43,10 @@ function AboutMe() {
         bool: false,
       }   
     
-  
+  function onSubmit(){
+    console.log("POST")
+    
+  }
         return (
         <>
           <Back url={"/singup"}/>
@@ -51,6 +55,8 @@ function AboutMe() {
             arrState = {arrState}
             title={"Заполните данные о себе"}
             bottomText = {bottomText}
+            handleClickValidation={handleClickValidation}
+            onSubmit={onSubmit}
             />
         </>
         )

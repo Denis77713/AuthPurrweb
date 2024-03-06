@@ -19,7 +19,7 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
   // 
   const dispatch = useDispatch()
    const repeatPassValidate = useSelector(store => store.SingUpSlice.passState)
-   
+   let keyBackspace
   return (
   <div className={style.wrapperSingUp}>
     <label className={labelStyle.labelSingUp}>{label}</label>
@@ -29,12 +29,15 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
     placeholder={placeholder}
     {...register(name, { 
       minLength:{
-        value: 8,
+        value: name === "repeatPass" ? 8 
+        : name === "password" ? 8 
+        : 1,
         message:"Минимум 8 символов"
       }, 
       required: true,
       validate: {
-        checkUrl: async (value) => {
+        // Запрос на сервер. Совпадает ли поле значение поля email с email в api
+        checkEmail: async (value) => {
           let result
           let err = false
           await fetch("http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users")
@@ -48,18 +51,53 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
           })
           if(name === "email"){
            await dispatch(emailError(err))
-            return value !== result || "Пользователь с таким email уже существует..."
+           return value !== result || "Пользователь с таким email уже существует..."
           }
         },
-        passAndRepeatPass:(value)=>{
+        // Совпадают ли пароли
+        passAndRepeatPass:(value)=> {
           if(name === "repeatPass"){
             return value === repeatPassValidate || 'Пароли не воспадают'
           }
         }
-      }
+      },
     })} 
     value={state}
-    onChange = {(e)=> {setState(e.target.value)}}/>
+    onKeyDown={(e)=>keyBackspace = e.key }
+    onChange = {(e)=> {
+      setState(e.target.value)
+      // Имя и фамилия с большой буквы
+      if(name === "surname" || name === "name"){
+         const first = e.target.value[0].toUpperCase()
+         let word = e.target.value.split("")
+         word[0] = first
+         word = word.join("")
+         setState(word)
+      }
+      if(name === "phone"){
+        console.log(keyBackspace)
+        
+        if(keyBackspace !== "Backspace"){
+          let phone = e.target.value.split("")
+          if(phone[0] === "7"||phone[0]==="+") {
+            if(phone.length < 3) phone[0] = `+${phone[0]} `
+            if (phone.length > 6 && phone.length < 8)phone[6] = ` ${phone[6]}`
+            if (phone.length > 10 && phone.length < 12)phone[10] = ` ${phone[10]}`
+            if (phone.length > 13 && phone.length < 16)phone[13] = ` ${phone[13]}`
+            console.log(phone)
+          
+        }
+        phone = phone.join("")
+        setState(phone)
+      }
+      if(keyBackspace === "Backspace"){
+        
+        let phone = e.target.value 
+        console.log(phone)
+       setState(phone)
+      }
+      }
+      }}/>
     {/* Только для пароля */}
     {
       type === "password"||""?

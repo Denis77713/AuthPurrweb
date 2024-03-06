@@ -1,21 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import styles from "../../components/Input/InputStyle/input.module.css"
 
-export const fetchSingUp = createAsyncThunk(
-  'SingUp/fetchSingUp',
-  async function(dataFrom){
-    let mail
-    const URL = "http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users";
-    await  fetch(URL)
-    .then((response) => response.json())
-    .then(data =>
-    data.forEach(item => {
-      if(item.email === dataFrom.email || item.email === dataFrom) mail = true
-      console.log(mail)
-    }))
-    return mail
-  }
-)
+
+// export const fetchSingUp = createAsyncThunk(
+//   'SingUp/fetchSingUp',
+//   async function(dataFrom){
+//     let mail
+//     const URL = "http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users";
+//     await  fetch(URL)
+//     .then((response) => response.json())
+//     .then(data =>
+//     data.forEach(item => {
+//       if(item.email === dataFrom.email || item.email === dataFrom) mail = true
+//       console.log(mail)
+//     }))
+//     return mail
+//   }
+// )
 
 const SingUpSlice = createSlice({
     name:"SingUp",
@@ -28,12 +29,11 @@ const SingUpSlice = createSlice({
         // Меняем границы по клику фокуса
         //  Валидация по клику
         handleClickValidation(state, action) {
-        const [pass,repeatPass,email] = action.payload
+        const [pass,repeatPass] = action.payload
         // Валидация повтора пароля
         const newArr = [styles.none,styles.unsuccessfully,styles.unsuccessfully]
         if(pass === repeatPass && pass.length >= 8) newArr[2] = styles.successfully
         if(pass.length >= 8) newArr[1] = styles.successfully
-        // if(email.length >= 8 && state.error === false) newArr[0] = styles.successfully    
         console.log(state.error)
         
         state.classes = [...newArr]
@@ -47,15 +47,17 @@ const SingUpSlice = createSlice({
         errorStyle(state,action){
           state.classes = [styles.unsuccessfully,styles.successfully,styles.successfully]
         },
+        // Создает стиль с ошибкой для email если почта совпадает с почтой в api
         emailError(state,action){
           state.error = action.payload
-          if(state.error ===true){
+          if(state.error === true){
             console.log(state.error)
             state.classes[0] = styles.unsuccessfully
           }else{
             state.classes[0] = styles.successfully
           } 
         },
+        // Сбрасывает стили
         defaultStyle(state,action){
           const arr = [styles.none,styles.none,styles.none]
           state.classes = [...arr]
