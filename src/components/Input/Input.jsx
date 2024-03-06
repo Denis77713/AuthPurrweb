@@ -48,7 +48,7 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
           })
           if(name === "email"){
            await dispatch(emailError(err))
-            return value !== result || "пользователь с таким email уже существует..."
+            return value !== result || "Пользователь с таким email уже существует..."
           }
         },
         passAndRepeatPass:(value)=>{

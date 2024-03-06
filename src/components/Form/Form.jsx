@@ -6,6 +6,7 @@ import SubmitButton from '../SubmitButton/SubmitButton'
 import ThereIsAnAccount from '../ThereIsAnAccount/ThereIsAnAccount'
 import { useDispatch, useSelector } from 'react-redux'
 import {useNavigate } from 'react-router-dom'
+import TextError from '../TextError/TextError'
 
 
 
@@ -39,9 +40,9 @@ const {
     />)}
     {/* Всплывающая ошибка валидации */}
 
-    {(errors.email && <span>{errors?.email?.message || 'Почта обязательна'}</span>)}
-    {(errors.password &&!errors.email&& <span>{errors?.password?.message || 'Пароль обязателен'}</span>)}
-    {(errors.repeatPass && !errors.password && <span>{errors?.repeatPass?.message || "Заполните поле"}</span>)}
+    {(errors.email && <TextError>{errors?.email?.message || 'Почта обязательна'}</TextError>)}
+    {(errors.password &&!errors.email && <TextError>{errors?.password?.message || 'Пароль обязателен'}</TextError>)}
+    {(errors.repeatPass && !errors.password &&!errors.email&&<span>{errors?.repeatPass?.message || "Заполните поле"}</span>)}
     
     <SubmitButton handleClickValidation={()=>dispatch(handleClickValidation(arrState))}
      arrState = {arrState}/>
