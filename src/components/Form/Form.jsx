@@ -4,14 +4,12 @@ import { useForm } from 'react-hook-form'
 import Input from '../Input/Input'
 import SubmitButton from '../SubmitButton/SubmitButton'
 import ThereIsAnAccount from '../ThereIsAnAccount/ThereIsAnAccount'
-import { useDispatch, useSelector } from 'react-redux'
-import {useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import TextError from '../TextError/TextError'
 
 
 
 function Form({Inputs,arrState,title,bottomText,handleClickValidation,onSubmit,onError}) {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
     // Хранит стили react-hook-form
 const {

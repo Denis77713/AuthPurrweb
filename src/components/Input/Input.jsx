@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import style from "./InputStyle/input.module.css"
 import labelStyle from "./LabelStyle/label.module.css"
@@ -75,27 +75,35 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
          setState(word)
       }
       if(name === "phone"){
-        console.log(keyBackspace)
-        
+        let phone = e.target.value.split("")
         if(keyBackspace !== "Backspace"){
-          let phone = e.target.value.split("")
           if(phone[0] === "7"||phone[0]==="+") {
-            if(phone.length < 3) phone[0] = `+${phone[0]} `
+            // if(phone.length < 3) phone[0] = `+${phone[0]} `
+            if (phone.length > 2 && phone.length < 4)phone[2] = ` ${phone[2]}`
             if (phone.length > 6 && phone.length < 8)phone[6] = ` ${phone[6]}`
             if (phone.length > 10 && phone.length < 12)phone[10] = ` ${phone[10]}`
             if (phone.length > 13 && phone.length < 16)phone[13] = ` ${phone[13]}`
-            console.log(phone)
-          
         }
+      }
+        if(keyBackspace === "Backspace"){
+          if(phone[phone.length-1]===" " || phone[phone.length-1]==="+") phone.pop()
+          if(phone[phone.length-2]==="+" && phone[phone.length-1]==="7") phone.length = 0
+        }
+        if(keyBackspace === " "){
+          phone.pop()
+        }
+        let num
+        const arr = ["1","2","3","4","5","6","7","8","9","0","+7"]
+        if(phone.length >= 1){
+          num = phone[phone.length - 1].replaceAll(" ","")
+          if(!arr.includes(num)) phone.pop()
+          if(arr.includes(num) &&
+           phone.length <= 4 && 
+           keyBackspace !== "Backspace") phone = ["+7 ",phone[0]]
+        } 
+        if(phone.length > 16) phone.pop()
         phone = phone.join("")
         setState(phone)
-      }
-      if(keyBackspace === "Backspace"){
-        
-        let phone = e.target.value 
-        console.log(phone)
-       setState(phone)
-      }
       }
       }}/>
     {/* Только для пароля */}
