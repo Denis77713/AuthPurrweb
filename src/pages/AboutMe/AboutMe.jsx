@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import Form from '../../components/Form/Form'
 import Back from '../../components/Back/Back'
-import {handleClickValidation} from "../../store/Slice/AboutMeSlice"
+import {handleClickValidation,post} from "../../store/Slice/AboutMeSlice"
+import { useDispatch } from 'react-redux'
 
 function AboutMe() {
     const [name,setName] = useState("")
     const [surname,setSurname] = useState("")
-    const [phone,setPhone] = useState("")
+    let phone
+    function setPhone(params) {
+      
+    }
     // 
     const arrState = [name, surname, phone]
     const Inputs = [
@@ -43,10 +47,12 @@ function AboutMe() {
         bool: false,
       }   
     
+  const dispatch = useDispatch()
   function onSubmit(){
     console.log("POST")
-    
+    dispatch(post())
   }
+  //  dispatch(check())
         return (
         <>
           <Back url={"/singup"}/>

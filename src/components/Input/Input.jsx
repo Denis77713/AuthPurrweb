@@ -5,11 +5,21 @@ import labelStyle from "./LabelStyle/label.module.css"
 import icnon from "./IconStyle/icnon.module.css"
 import {ReactComponent as AcceptImg}  from './images/accept.svg'
 import {ReactComponent as CloseImg}  from './images/close.svg'
-import {emailError} from "../../store/Slice/SingUpSlice"
+import {emailError,fetchSingUp} from "../../store/Slice/SingUpSlice"
+import {phoneValidation,nameAndSurname} from "../../store/Slice/AboutMeSlice"
 
 function Input({state, setState,register, name, num, placeholder, label, type}) {
   // Редюсер
-  const classes = useSelector(store=>store.SingUpSlice.classes)
+  const SingUp = useSelector(store=>store.SingUpSlice.classes)
+  const AboutMe = useSelector(store=>store.AboutMeSlice.classes)
+  let classes
+  if(name ==="repeatPass"||"password"||"email") classes = SingUp
+  if(name ==="name"||"surname"||"phone") classes = AboutMe
+
+  let phone = useSelector(store=>store.AboutMeSlice.phone)
+  if(name === "phone"){
+    state = phone
+  }
   //  Скрытие/отображение пароля
    const close = ["./images/eye_close.png","hidePassword"]
    const open = ["./images/eye_open.png","showPassword"]
@@ -38,28 +48,27 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
       validate: {
         // Запрос на сервер. Совпадает ли поле значение поля email с email в api
         checkEmail: async (value) => {
-          let result
-          let err = false
-          await fetch("http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users")
-          .then(response=>response.json()).then(data=>{
-            data.forEach(item=> {
-              if(item.email === value){
-                result = item.email
-                err = true 
-              }
-            })
-          })
-          if(name === "email"){
-           await dispatch(emailError(err))
-           return value !== result || "Пользователь с таким email уже существует..."
-          }
+           const data = await dispatch(fetchSingUp(value,name))
+           let err = await data.payload[0]
+           let result = await data.payload[1]
+           if(name === "email"){
+             await dispatch(emailError(err))
+             return value !== result || "Пользователь с таким email уже существует..."
+           }
         },
         // Совпадают ли пароли
         passAndRepeatPass:(value)=> {
           if(name === "repeatPass"){
             return value === repeatPassValidate || 'Пароли не воспадают'
           }
-        }
+        },
+        phoneValidate:(value)=> {
+          if(name === "phone"){
+            console.log(value)
+            return value.length === 16 || 'Не верный формат номера телефона'
+            
+          }
+        },
       },
     })} 
     value={state}
@@ -68,43 +77,16 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
       setState(e.target.value)
       // Имя и фамилия с большой буквы
       if(name === "surname" || name === "name"){
-         const first = e.target.value[0].toUpperCase()
-         let word = e.target.value.split("")
-         word[0] = first
-         word = word.join("")
-         setState(word)
+        const dataWord = dispatch(nameAndSurname(e.target.value))
+         setState(dataWord.payload)
       }
-      if(name === "phone"){
-        let phone = e.target.value.split("")
-        if(keyBackspace !== "Backspace"){
-          if(phone[0] === "7"||phone[0]==="+") {
-            // if(phone.length < 3) phone[0] = `+${phone[0]} `
-            if (phone.length > 2 && phone.length < 4)phone[2] = ` ${phone[2]}`
-            if (phone.length > 6 && phone.length < 8)phone[6] = ` ${phone[6]}`
-            if (phone.length > 10 && phone.length < 12)phone[10] = ` ${phone[10]}`
-            if (phone.length > 13 && phone.length < 16)phone[13] = ` ${phone[13]}`
-        }
+      if(name === "phone") {
+        dispatch(phoneValidation([e.target.value, keyBackspace]))
+        console.log(state)
+        
+        
       }
-        if(keyBackspace === "Backspace"){
-          if(phone[phone.length-1]===" " || phone[phone.length-1]==="+") phone.pop()
-          if(phone[phone.length-2]==="+" && phone[phone.length-1]==="7") phone.length = 0
-        }
-        if(keyBackspace === " "){
-          phone.pop()
-        }
-        let num
-        const arr = ["1","2","3","4","5","6","7","8","9","0","+7"]
-        if(phone.length >= 1){
-          num = phone[phone.length - 1].replaceAll(" ","")
-          if(!arr.includes(num)) phone.pop()
-          if(arr.includes(num) &&
-           phone.length <= 4 && 
-           keyBackspace !== "Backspace") phone = ["+7 ",phone[0]]
-        } 
-        if(phone.length > 16) phone.pop()
-        phone = phone.join("")
-        setState(phone)
-      }
+      
       }}/>
     {/* Только для пароля */}
     {

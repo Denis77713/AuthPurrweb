@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Form from '../../components/Form/Form'
 import {handleClickValidation,defaultStyle} from "../../store/Slice/SingUpSlice"
-import {dataInAboutMe} from "../../store/Slice/AboutMeSlice"
+import {check, dataInAboutMe} from "../../store/Slice/AboutMeSlice"
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 function SingIn() {
@@ -50,10 +50,11 @@ function SingIn() {
     url:"/singin"
   }  
   function onSubmit(data){
-    // console.log(data)
+    console.log(data)
     dispatch(dataInAboutMe(data))
     navigate("/aboutme")
     dispatch(defaultStyle())
+    dispatch(check(data))
   }
       return (
         <Form 

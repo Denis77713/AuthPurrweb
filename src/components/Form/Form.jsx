@@ -40,7 +40,8 @@ const {
 
     {(errors.email && <TextError>{errors?.email?.message || 'Почта обязательна'}</TextError>)}
     {(errors.password &&!errors.email && <TextError>{errors?.password?.message || 'Пароль обязателен'}</TextError>)}
-    {(errors.repeatPass && !errors.password &&!errors.email&&<span>{errors?.repeatPass?.message || "Заполните поле"}</span>)}
+    {(errors.repeatPass && !errors.password &&!errors.email&&<TextError>{errors?.repeatPass?.message || "Заполните поле"}</TextError>)}
+    {(errors.phone && <TextError>{errors?.phone?.message || 'Введите номер телефона'}</TextError>)}
     
     <SubmitButton handleClickValidation={()=>dispatch(handleClickValidation(arrState))}
      arrState = {arrState}/>

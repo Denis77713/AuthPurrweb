@@ -2,21 +2,24 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import styles from "../../components/Input/InputStyle/input.module.css"
 
 
-// export const fetchSingUp = createAsyncThunk(
-//   'SingUp/fetchSingUp',
-//   async function(dataFrom){
-//     let mail
-//     const URL = "http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users";
-//     await  fetch(URL)
-//     .then((response) => response.json())
-//     .then(data =>
-//     data.forEach(item => {
-//       if(item.email === dataFrom.email || item.email === dataFrom) mail = true
-//       console.log(mail)
-//     }))
-//     return mail
-//   }
-// )
+export const fetchSingUp = createAsyncThunk(
+  'SingUp/fetchSingUp',
+  async function (value,name) {
+    let result
+    let err = false
+    await fetch("http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users")
+    .then(response=>response.json()).then(data=>{
+      // console.log(data);
+      data.forEach(item=> {
+        if(item.email === value){
+          result = item.email
+          err = true 
+        }
+      })
+    })
+    return [err,result]
+  }
+)
 
 const SingUpSlice = createSlice({
     name:"SingUp",
@@ -34,11 +37,9 @@ const SingUpSlice = createSlice({
         const newArr = [styles.none,styles.unsuccessfully,styles.unsuccessfully]
         if(pass === repeatPass && pass.length >= 8) newArr[2] = styles.successfully
         if(pass.length >= 8) newArr[1] = styles.successfully
-        console.log(state.error)
         
         state.classes = [...newArr]
         state.passState = pass
-        console.log(123)
         
         },
         error(state,action){
@@ -51,7 +52,6 @@ const SingUpSlice = createSlice({
         emailError(state,action){
           state.error = action.payload
           if(state.error === true){
-            console.log(state.error)
             state.classes[0] = styles.unsuccessfully
           }else{
             state.classes[0] = styles.successfully
