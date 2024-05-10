@@ -1,9 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import styles from "../../components/Input/InputStyle/input.module.css"
 
-// Заменить!
-export const fetchSingUp = createAsyncThunk(
-  'SingUp/fetchSingUp',
+export const fetchSingIn = createAsyncThunk(
+  'SingIn/fetchSingIn',
   async function (value,name) {
     let result
     let err = false
@@ -23,7 +22,7 @@ export const fetchSingUp = createAsyncThunk(
 const SingInSlice = createSlice({
     name:"SingUp",
     initialState:{
-         classes: [styles.none,styles.none,styles.none],
+         classes: [styles.none,styles.none],
          passState:"",
          error: true,
     },
@@ -34,8 +33,17 @@ const SingInSlice = createSlice({
         const [pass,repeatPass] = action.payload
         console.log(pass);
         console.log(repeatPass);
+        },
+        emailErrorSingIn(state,action){
+          if(action.payload === true){
+            let data = current(state)
+            state.classes[0] = styles.successfully
+            console.log(data.classes);
+            console.log(current(state.classes));
+          }
+          
         }
     }
 })
-export const {handleClickValidation,error,errorStyle,emailError,defaultStyle} = SingInSlice.actions
+export const {handleClickValidation,error,errorStyle,emailErrorSingIn,defaultStyle} = SingInSlice.actions
 export default SingInSlice.reducer

@@ -7,6 +7,8 @@ import {ReactComponent as AcceptImg}  from './images/accept.svg'
 import {ReactComponent as CloseImg}  from './images/close.svg'
 import {emailError,fetchSingUp} from "../../store/Slice/SingUpSlice"
 import {phoneValidation,nameAndSurname} from "../../store/Slice/AboutMeSlice"
+import { useLocation } from 'react-router-dom'
+import { emailErrorSingIn } from '../../store/Slice/SingInSlice'
 
 function Input({state, setState,register, name, num, placeholder, label, type}) {
   // Редюсер
@@ -15,7 +17,7 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
   let classes
   if(name ==="repeatPass"||"password"||"email") classes = SingUp
   if(name ==="name"||"surname"||"phone") classes = AboutMe
-
+console.log(SingUp);
   let phone = useSelector(store=>store.AboutMeSlice.phone)
   if(name === "phone"){
     state = phone
@@ -26,10 +28,13 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
    const [showAndHide,setShowAndHide] = useState(false)
   //  successfully/unsuccessfully
   const validateStyle = classes[num].replaceAll("_"," ").split(" ")[1]
+  console.log(validateStyle);
   // 
   const dispatch = useDispatch()
    const repeatPassValidate = useSelector(store => store.SingUpSlice.passState)
    let keyBackspace
+  //  На какой странице мы находимся, useLocation это определяет 
+   const location = useLocation()
   return (
   <div className={style.wrapperSingUp}>
     <label className={labelStyle.labelSingUp}>{label}</label>
@@ -47,13 +52,24 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
       required: true,
       validate: {
         // Запрос на сервер. Совпадает ли поле значение поля email с email в api
+        // value это поле почты
         checkEmail: async (value) => {
-           const data = await dispatch(fetchSingUp(value,name))
+          //  fetchSingUp ищет совпадает ли value с почтами в api
+          const data = await dispatch(fetchSingUp(value))
+          console.log(data);
+          // Если совпало то err = true
            let err = await data.payload[0]
+          //  result тут сама почта
            let result = await data.payload[1]
-           if(name === "email"){
+          // Логика для singup
+           if(name === "email" && location.pathname ==="/singup"){
              await dispatch(emailError(err))
              return value !== result || "Пользователь с таким email уже существует..."
+            }
+            // Логика для singin
+            if(name === "email" && location.pathname ==="/singin"){
+              await dispatch(emailErrorSingIn(err))
+             return value === result || "Такого пользователя не существует"
            }
         },
         // Совпадают ли пароли

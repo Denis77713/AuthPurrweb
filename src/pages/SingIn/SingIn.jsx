@@ -28,7 +28,6 @@ function SingIn() {
     },
   ]
   //
-
   const bottomText = {
     bool: true,
     text: "Еще нет аккаунта?",
@@ -37,10 +36,10 @@ function SingIn() {
   }
   // login
   let token
-  async function onSubmit() {
+  async function onSubmit(email,password) {
     const auth = {
-      email: "asdasdaaaassssd@mail.ru",
-      password: "asdasdasda",
+      email: email,
+      password: password,
     }
 
     const URL =
@@ -96,8 +95,8 @@ function Editing() {
         arrState={arrState}
         title={"Авторизация"}
         bottomText={bottomText}
-        handleClickValidation={handleClickValidation}
-        onSubmit={onSubmit}
+        handleClickValidation={(handleClickValidation)}
+        onSubmit={()=>onSubmit(name,surname)}
       />
     </>
   )

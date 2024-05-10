@@ -19,7 +19,6 @@ const router = createBrowserRouter(
 )
 function App() {
   useEffect(()=>{
-    console.log(123)
   },[])
   return (
     <div className="App">

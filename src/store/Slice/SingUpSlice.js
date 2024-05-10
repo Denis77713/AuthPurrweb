@@ -5,11 +5,11 @@ import styles from "../../components/Input/InputStyle/input.module.css"
 export const fetchSingUp = createAsyncThunk(
   'SingUp/fetchSingUp',
   async function (value,name) {
+    
     let result
     let err = false
     await fetch("http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users")
     .then(response=>response.json()).then(data=>{
-      // console.log(data);
       data.forEach(item=> {
         if(item.email === value){
           result = item.email

@@ -37,7 +37,6 @@ const {
       type = {item.type}
     />)}
     {/* Всплывающая ошибка валидации */}
-
     {(errors.email && <TextError>{errors?.email?.message || 'Почта обязательна'}</TextError>)}
     {(errors.password &&!errors.email && <TextError>{errors?.password?.message || 'Пароль обязателен'}</TextError>)}
     {(errors.repeatPass && !errors.password &&!errors.email&&<TextError>{errors?.repeatPass?.message || "Заполните поле"}</TextError>)}
