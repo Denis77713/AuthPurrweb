@@ -11,17 +11,25 @@ import { useLocation } from 'react-router-dom'
 import { emailErrorSingIn } from '../../store/Slice/SingInSlice'
 
 function Input({state, setState,register, name, num, placeholder, label, type}) {
-  // Редюсер
-  const SingUp = useSelector(store=>store.SingUpSlice.classes)
-  const AboutMe = useSelector(store=>store.AboutMeSlice.classes)
+  //  На какой странице мы находимся, useLocation это определяет 
+  const location = useLocation()
+  // Вытаскиваем массив со стилями инпута из хранилища
+  const SingUpSlice = useSelector(store=>store.SingUpSlice.classes)
+  const AboutMeSlice = useSelector(store=>store.AboutMeSlice.classes)
   let classes
-  if(name ==="repeatPass"||"password"||"email") classes = SingUp
-  if(name ==="name"||"surname"||"phone") classes = AboutMe
-console.log(SingUp);
-  let phone = useSelector(store=>store.AboutMeSlice.phone)
-  if(name === "phone"){
-    state = phone
+  // В зависимости на какой мы странице, применяется логика стилей
+  if(location.pathname === "/singup") {
+    classes = SingUpSlice
+    console.log(classes);
+  }else if(location.pathname === "/aboutme"){
+    classes = AboutMeSlice
+  } else {
+    // Заглушка, если не прописанна логика для стилей
+    classes = ["input_none__58uhS","input_none__58uhS","input_none__58uhS"]
+
   }
+  
+
   //  Скрытие/отображение пароля
    const close = ["./images/eye_close.png","hidePassword"]
    const open = ["./images/eye_open.png","showPassword"]
@@ -33,8 +41,7 @@ console.log(SingUp);
   const dispatch = useDispatch()
    const repeatPassValidate = useSelector(store => store.SingUpSlice.passState)
    let keyBackspace
-  //  На какой странице мы находимся, useLocation это определяет 
-   const location = useLocation()
+  
   return (
   <div className={style.wrapperSingUp}>
     <label className={labelStyle.labelSingUp}>{label}</label>
