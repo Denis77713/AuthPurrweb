@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import styles from "../../components/Input/InputStyle/input.module.css"
 
-
+// Запрос проверяет существование пользователя, вернет ошибку и почту.
+// Запрос связан с input компонентом
 export const fetchSingUp = createAsyncThunk(
   'SingUp/fetchSingUp',
   async function (value,name) {

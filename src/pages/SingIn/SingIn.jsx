@@ -1,10 +1,13 @@
 import React, { useState } from "react"
 import Form from "../../components/Form/Form"
 import { handleClickValidation } from "../../store/Slice/SingInSlice"
+import { useDispatch } from "react-redux"
+import { Auth } from "../../store/Slice/AcyncSlice"
 
 function SingIn() {
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
+  const dispatch = useDispatch()
   //
   const arrState = [name, surname]
   const Inputs = [
@@ -35,13 +38,12 @@ function SingIn() {
     url: "/singup",
   }
   // login
-  let token
-  async function onSubmit(email,password) {
+  async function onSubmit (email,password) {
+    let token
     const auth = {
       email: email,
       password: password,
     }
-
     const URL =
       "http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/auth/login"
 
@@ -64,10 +66,10 @@ function SingIn() {
 function Editing() {
   const body = {
     // Пароль можно поменять
-    password: "asdasdasda"
+    // password: "asdasdasda"
   };
   console.log(JSON.stringify(body));
-
+  let token 
   const URL =
     "http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users";
   //
@@ -96,7 +98,7 @@ function Editing() {
         title={"Авторизация"}
         bottomText={bottomText}
         handleClickValidation={(handleClickValidation)}
-        onSubmit={()=>onSubmit(name,surname)}
+        onSubmit={()=>dispatch(Auth([name,surname]))}
       />
     </>
   )

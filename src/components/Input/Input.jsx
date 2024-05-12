@@ -8,7 +8,7 @@ import {ReactComponent as CloseImg}  from './images/close.svg'
 import {emailError,fetchSingUp} from "../../store/Slice/SingUpSlice"
 import {phoneValidation,nameAndSurname} from "../../store/Slice/AboutMeSlice"
 import { useLocation } from 'react-router-dom'
-import { emailErrorSingIn } from '../../store/Slice/SingInSlice'
+import { emailErrorSingIn,fetchSingIn } from '../../store/Slice/SingInSlice'
 
 function Input({state, setState,register, name, num, placeholder, label, type}) {
   //  На какой странице мы находимся, useLocation это определяет 
@@ -16,6 +16,7 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
   // Вытаскиваем массив со стилями инпута из хранилища
   const SingUpSlice = useSelector(store=>store.SingUpSlice.classes)
   const AboutMeSlice = useSelector(store=>store.AboutMeSlice.classes)
+  const SingInSlice = useSelector(store=>store.SingInSlice.classes)
   let classes
   // В зависимости на какой мы странице, применяется логика стилей
   if(location.pathname === "/singup") {
@@ -23,7 +24,10 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
     console.log(classes);
   }else if(location.pathname === "/aboutme"){
     classes = AboutMeSlice
-  } else {
+  }else if(location.pathname === "/singin") {
+    classes = SingInSlice
+  } 
+  else {
     // Заглушка, если не прописанна логика для стилей
     classes = ["input_none__58uhS","input_none__58uhS","input_none__58uhS"]
 
@@ -36,7 +40,6 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
    const [showAndHide,setShowAndHide] = useState(false)
   //  successfully/unsuccessfully
   const validateStyle = classes[num].replaceAll("_"," ").split(" ")[1]
-  console.log(validateStyle);
   // 
   const dispatch = useDispatch()
    const repeatPassValidate = useSelector(store => store.SingUpSlice.passState)
@@ -62,7 +65,12 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
         // value это поле почты
         checkEmail: async (value) => {
           //  fetchSingUp ищет совпадает ли value с почтами в api
-          const data = await dispatch(fetchSingUp(value))
+          const reqestSingUp = await dispatch(fetchSingUp(value))
+          const reqestSingIn = await dispatch(fetchSingIn(value))
+          let data
+          if(location.pathname === "/singup") data = reqestSingUp
+          if(location.pathname === "/singin") data = reqestSingIn
+          
           console.log(data);
           // Если совпало то err = true
            let err = await data.payload[0]

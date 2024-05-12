@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import styles from "../../components/Input/InputStyle/input.module.css"
 
+// Запрос проверяет существование пользователя
 export const fetchSingIn = createAsyncThunk(
   'SingIn/fetchSingIn',
-  async function (value,name) {
+  async function (value) {
     let result
     let err = false
     await fetch("http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users")
@@ -15,6 +16,7 @@ export const fetchSingIn = createAsyncThunk(
         }
       })
     })
+    console.log(err);
     return [err,result]
   }
 )
@@ -36,12 +38,10 @@ const SingInSlice = createSlice({
         },
         emailErrorSingIn(state,action){
           if(action.payload === true){
-            let data = current(state)
             state.classes[0] = styles.successfully
-            console.log(data.classes);
-            console.log(current(state.classes));
+          }else{
+            state.classes[0] = styles.unsuccessfully
           }
-          
         }
     }
 })
