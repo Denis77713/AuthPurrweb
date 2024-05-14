@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Form from '../../components/Form/Form'
 import Back from '../../components/Back/Back'
 import {handleClickValidation,post} from "../../store/Slice/AboutMeSlice"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Auth } from '../../store/Slice/AcyncSlice'
 
 function AboutMe() {
     const [name,setName] = useState("")
@@ -48,9 +49,10 @@ function AboutMe() {
       }   
     
   const dispatch = useDispatch()
-  function onSubmit(){
-    console.log("POST")
-    dispatch(post())
+  const data = useSelector(store => store.AboutMeSlice.singUp)
+ async function onSubmit(){
+    await dispatch(post())
+    await dispatch(Auth([data.email,data.password]))
   }
   //  dispatch(check())
         return (

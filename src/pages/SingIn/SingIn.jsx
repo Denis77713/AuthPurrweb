@@ -58,7 +58,6 @@ function SingIn() {
       .then((response) => response.json())
       .then((data) => (token = data))
 
-    console.log(token)
     localStorage.setItem("test", token.accessToken)
   }
 // path

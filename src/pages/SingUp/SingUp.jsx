@@ -50,7 +50,6 @@ function SingIn() {
     url:"/singin"
   }  
   function onSubmit(data){
-    console.log(data)
     dispatch(dataInAboutMe(data))
     navigate("/aboutme")
     dispatch(defaultStyle())

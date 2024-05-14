@@ -3,10 +3,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 export const Auth = createAsyncThunk(
   "AcyncSlice/Auth",
   async function  (data) {
+    console.log(data);
     const [email,password] = data
     let token
-    console.log(email);
-    console.log(password);
     const auth = {
       email: email,
       password: password,
@@ -25,9 +24,8 @@ export const Auth = createAsyncThunk(
       .then((response) => response.json())
       .then((data) => (token = data))
 
-    console.log(token)
-    document.cookie = "user=John";
-    alert(document.cookie);
+    // document.cookie = "user=John";
+    // alert(document.cookie);
     localStorage.setItem("test", token.accessToken)
   }
 )
@@ -44,7 +42,6 @@ const AcyncSlice = createSlice({
     // Меняем границы по клику фокуса
     //  Валидация по клику
     test(state, action) {
-      console.log(action)
     },
     error(state, action) {},
   },

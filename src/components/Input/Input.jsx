@@ -21,7 +21,6 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
   // В зависимости на какой мы странице, применяется логика стилей
   if(location.pathname === "/singup") {
     classes = SingUpSlice
-    console.log(classes);
   }else if(location.pathname === "/aboutme"){
     classes = AboutMeSlice
   }else if(location.pathname === "/singin") {
@@ -32,8 +31,10 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
     classes = ["input_none__58uhS","input_none__58uhS","input_none__58uhS"]
 
   }
-  
-
+  let phone = useSelector(store=>store.AboutMeSlice.phone)
+  if(name === "phone"){
+    state = phone
+  }
   //  Скрытие/отображение пароля
    const close = ["./images/eye_close.png","hidePassword"]
    const open = ["./images/eye_open.png","showPassword"]
@@ -70,8 +71,8 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
           let data
           if(location.pathname === "/singup") data = reqestSingUp
           if(location.pathname === "/singin") data = reqestSingIn
-          
-          console.log(data);
+          if(location.pathname !== "/singup"
+          || location.pathname !== "/singin") data = reqestSingUp
           // Если совпало то err = true
            let err = await data.payload[0]
           //  result тут сама почта
@@ -95,7 +96,6 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
         },
         phoneValidate:(value)=> {
           if(name === "phone"){
-            console.log(value)
             return value.length === 16 || 'Не верный формат номера телефона'
             
           }
@@ -113,7 +113,6 @@ function Input({state, setState,register, name, num, placeholder, label, type}) 
       }
       if(name === "phone") {
         dispatch(phoneValidation([e.target.value, keyBackspace]))
-        console.log(state)
         
         
       }

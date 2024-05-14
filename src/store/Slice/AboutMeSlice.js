@@ -103,7 +103,7 @@ const AboutMeSlice = createSlice({
               "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-            }).then((response) =>response).then(data=>console.log(data.json()))
+            }).then((response) =>console.log(response))
           
         }
 

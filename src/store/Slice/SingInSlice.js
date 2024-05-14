@@ -16,7 +16,6 @@ export const fetchSingIn = createAsyncThunk(
         }
       })
     })
-    console.log(err);
     return [err,result]
   }
 )
@@ -33,8 +32,6 @@ const SingInSlice = createSlice({
         //  Валидация по клику
         handleClickValidation(state, action) {
         const [pass,repeatPass] = action.payload
-        console.log(pass);
-        console.log(repeatPass);
         },
         emailErrorSingIn(state,action){
           if(action.payload === true){
