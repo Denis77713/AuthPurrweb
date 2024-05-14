@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from '../../components/Form/Form'
 import {handleClickValidation,defaultStyle} from "../../store/Slice/SingUpSlice"
 import {check, dataInAboutMe} from "../../store/Slice/AboutMeSlice"
@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 function SingIn() {
   // 
+  useEffect(()=>{
+    localStorage.clear();
+  },[])
   const navigate = useNavigate()
   const dispatch = useDispatch()
  

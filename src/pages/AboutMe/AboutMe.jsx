@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from '../../components/Form/Form'
 import Back from '../../components/Back/Back'
 import {handleClickValidation,post} from "../../store/Slice/AboutMeSlice"
@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Auth } from '../../store/Slice/AcyncSlice'
 
 function AboutMe() {
+  useEffect(()=>{
+    localStorage.clear();
+  },[])
     const [name,setName] = useState("")
     const [surname,setSurname] = useState("")
     let phone

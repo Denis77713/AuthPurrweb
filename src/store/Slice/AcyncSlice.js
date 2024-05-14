@@ -23,7 +23,7 @@ export const Auth = createAsyncThunk(
     })
       .then((response) => response.json())
       .then((data) => (token = data))
-
+        console.log(data);
     // document.cookie = "user=John";
     // alert(document.cookie);
     localStorage.setItem("test", token.accessToken)

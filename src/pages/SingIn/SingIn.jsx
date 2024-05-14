@@ -1,10 +1,13 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Form from "../../components/Form/Form"
 import { handleClickValidation } from "../../store/Slice/SingInSlice"
 import { useDispatch } from "react-redux"
 import { Auth } from "../../store/Slice/AcyncSlice"
 
 function SingIn() {
+  useEffect(()=>{
+    localStorage.clear();
+  },[])
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
   const dispatch = useDispatch()
